@@ -1,0 +1,22 @@
+###############################################
+# Run GitHub's Super Linter against code base #
+###############################################
+
+---
+name: GitHub's Super Linter
+on:
+  push:
+    branches: [master]
+  pull_request:
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - run: dotnet --info
+      - uses: actions/checkout@v2
+      - uses: github/super-linter@v3
+        env:
+          FILTER_REGEX_EXCLUDE: \bLICENSE$|\w*\.sln$|\blog\.txt$
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VALIDATE_SHFMT: false
+          VALIDATE_EDITORCONFIG: false
